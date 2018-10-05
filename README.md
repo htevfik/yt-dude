@@ -16,6 +16,7 @@ crawler.search('gazirovka black').then(results  => {
 
 ## Output
 `GET:` [https://www.youtube.com/results?search_query=gazirovka%20black](https://www.youtube.com/results?search_query=gazirovka%20black)
+
 `19 results found`
 ```javascript
 { 
