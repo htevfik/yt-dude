@@ -1,6 +1,6 @@
 {
   "name": "yt-dude",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "here is a package for crawling and downloading videos from youtube",
   "main": "dist/index.js",
   "scripts": {
@@ -17,8 +17,10 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "easy-ffmpeg": "0.0.15",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "ytdl-core": "^0.26.1"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.24",

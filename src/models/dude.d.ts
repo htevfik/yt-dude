@@ -1,4 +1,10 @@
-declare namespace YTCrawler {
+declare namespace Dude {
+  export interface ProgressEvent {
+    percent: number,
+    totalTime: number,
+    currentTime: number,
+  }
+
   export interface Result {
     id?: number,
     videoId: string,

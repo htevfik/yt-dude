@@ -17,7 +17,7 @@ export class Parser {
     return object || def;
   }
 
-  public static extract(result: Youtube.SearchResult): YTCrawler.Result {
+  public static extract(result: Youtube.SearchResult): Dude.Result {
     return {
       videoId: result.videoId,
       title: Parser.text(result.title),
@@ -114,8 +114,6 @@ export class Parser {
 
   private static readonly multipliers = [1, 60, 3600, 86400];
   public static videoLength(text: Youtube.Text): number {
-    let a = Parser.text(text).split(/\D+/), i = a.length, o = 0;
-    while (i--) o += a[i] * Parser.multipliers[i];
-    return o;
+    return Parser.text(text).split('.')[0].split(/\D+/).reverse().map((x, i) => +x * Parser.multipliers[i]).reduce((a, b) => a + b);
   }
 }
