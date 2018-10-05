@@ -1,0 +1,31 @@
+{
+  "name": "yt-dude",
+  "version": "1.0.0",
+  "description": "here is a package for crawling and downloading videos from youtube",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "youtube",
+    "video",
+    "channel",
+    "crawler",
+    "downloader"
+  ],
+  "author": "halil teyfik <hlltvfk@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.24",
+    "@types/cheerio": "^0.22.9",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.11.4",
+    "@types/request": "^2.47.1",
+    "@types/request-promise": "^4.1.42"
+  }
+}
