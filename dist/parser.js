@@ -97,7 +97,10 @@ class Parser {
         return null;
     }
     static videoLength(text) {
-        return Parser.text(text).split(/\D+/).reverse().map((x, i) => Number(x) * Parser.multipliers[i]).reverse().reduce((a, b) => a + b);
+        let a = Parser.text(text).split(/\D+/), i = a.length, o = 0;
+        while (i--)
+            o += a[i] * Parser.multipliers[i];
+        return o;
     }
 }
 Parser.multipliers = [1, 60, 3600, 86400];
