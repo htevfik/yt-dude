@@ -2,4 +2,4 @@
 here is a crawler for youtube 
 for now you can only crawl for search results
 
-check index.js for examples ;)
+check examples.js for examples ;)
