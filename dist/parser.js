@@ -22,7 +22,7 @@ class Parser {
             title: Parser.text(result.title),
             titleLong: Parser.text(result.title, true),
             description: Parser.runs(result.descriptionSnippet),
-            length: Parser.videoLenth(result.lengthText),
+            length: Parser.videoLength(result.lengthText),
             lengthText: Parser.text(result.lengthText),
             viewCount: Parser.viewCount(result),
             viewCountText: Parser.text(result.shortViewCountText),
@@ -96,12 +96,8 @@ class Parser {
         }
         return null;
     }
-    static videoLenth(text) {
-        let time = Parser.text(text).match(/\d+/) || [], length = 0;
-        for (let i = time.length - 1; i > -1; i--) {
-            length += Parser.multipliers[i] * parseInt(time[i]);
-        }
-        return length;
+    static videoLength(text) {
+        return Parser.text(text).split(/\D+/).reverse().map((x, i) => Number(x) * Parser.multipliers[i]).reverse().reduce((a, b) => a + b);
     }
 }
 Parser.multipliers = [1, 60, 3600, 86400];

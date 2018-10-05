@@ -1,7 +1,7 @@
 export class Parser {
   public static child<T>(object, path, def = null): T {
     def = def || object;
-    
+
     if (!object || !path) {
       return def;
     }
@@ -23,7 +23,7 @@ export class Parser {
       title: Parser.text(result.title),
       titleLong: Parser.text(result.title, true),
       description: Parser.runs(result.descriptionSnippet),
-      length: Parser.videoLenth(result.lengthText),
+      length: Parser.videoLength(result.lengthText),
       lengthText: Parser.text(result.lengthText),
       viewCount: Parser.viewCount(result),
       viewCountText: Parser.text(result.shortViewCountText),
@@ -113,13 +113,7 @@ export class Parser {
   }
 
   private static readonly multipliers = [1, 60, 3600, 86400];
-  public static videoLenth(text: Youtube.Text): number {
-    let time = Parser.text(text).match(/\d+/) || [], length = 0;
-
-    for (let i = time.length - 1; i > -1; i--) {
-      length += Parser.multipliers[i] * parseInt(time[i]);
-    }
-
-    return length;
+  public static videoLength(text: Youtube.Text): number {
+    return Parser.text(text).split(/\D+/).reverse().map((x, i) => Number(x) * Parser.multipliers[i]).reverse().reduce((a, b) => a + b);
   }
 }
