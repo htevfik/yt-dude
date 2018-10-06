@@ -29,8 +29,10 @@ class Downloader {
         return this.queue.filter(item => item.ongoing).length;
     }
     addQueue(video, saveTo) {
-        this.queue.push({ video, saveTo, dudeEvent: new event_1.DudeEvent() });
+        const dudeEvent = new event_1.DudeEvent();
+        this.queue.push({ video, saveTo, dudeEvent });
         this.checkQueue();
+        return dudeEvent;
     }
     removeQueue(item) {
         this.queue.splice(this.queue.indexOf(item), 1);

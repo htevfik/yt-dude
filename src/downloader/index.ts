@@ -35,8 +35,10 @@ class Downloader {
   }
 
   private addQueue(video: Dude.Video | Dude.Result, saveTo: string) {
-    this.queue.push({ video, saveTo, dudeEvent: new DudeEvent() });
+    const dudeEvent = new DudeEvent();
+    this.queue.push({ video, saveTo, dudeEvent });
     this.checkQueue();
+    return dudeEvent;
   }
 
   private removeQueue(item: QueueItem) {
