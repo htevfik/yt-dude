@@ -10,20 +10,19 @@ interface DudeEvent extends EventEmitter {
 }
 
 class DudeEvent extends EventEmitter {
-  then(callback: () => void, errorCallback?: (err: Error) => void): Promise<void> {
+  toPromise(): Promise<void> {
     return new Promise((...args) => {
       this.on('done', args[0]);
+      this.on('error', args[1]);
+    });
+  }
 
-      if (errorCallback) {
-        this.on('error', args[1]);
-      }
-    }).then(callback, errorCallback);
+  then(callback: () => void, errorCallback?: (err: Error) => void): Promise<void> {
+    return this.toPromise().then(callback, errorCallback);
   }
 
   catch(errorCallback: (err: Error) => void) {
-    return new Promise((...args) => {
-      this.on('error', args[1]);
-    }).catch(errorCallback);
+    return this.toPromise().catch(errorCallback);
   }
 }
 
