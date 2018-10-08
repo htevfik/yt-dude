@@ -9,6 +9,22 @@ interface DudeEvent extends EventEmitter {
   emit(event: 'progress', progress: Dude.ProgressEvent);
 }
 
-class DudeEvent extends EventEmitter { }
+class DudeEvent extends EventEmitter {
+  then(callback: () => void, errorCallback?: (err: Error) => void): Promise<void> {
+    return new Promise((...args) => {
+      this.on('done', args[0]);
+
+      if (errorCallback) {
+        this.on('error', args[1]);
+      }
+    }).then(callback, errorCallback);
+  }
+
+  catch(errorCallback: (err: Error) => void) {
+    return new Promise((...args) => {
+      this.on('error', args[1]);
+    }).catch(errorCallback);
+  }
+}
 
 export { DudeEvent };
