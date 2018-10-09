@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class Parser {
     static child(object, path, def = null) {
-        def = def || object;
         if (!object || !path) {
             return def;
         }
@@ -20,7 +19,7 @@ class Parser {
         return {
             videoId: result.videoId,
             title: Parser.text(result.title),
-            titleLong: Parser.text(result.title, true),
+            titleLong: Parser.label(result.title),
             description: Parser.runs(result.descriptionSnippet),
             length: Parser.videoLength(result.lengthText),
             lengthText: Parser.text(result.lengthText),
@@ -72,21 +71,17 @@ class Parser {
         }
         return o || null;
     }
-    static text(text, label = false) {
+    static label(text) {
+        if (!text)
+            return null;
+        return this.child(text.accessibility || text, 'accessibilityData.label');
+    }
+    static text(text) {
         if (!text)
             return "";
         if (typeof text == 'string')
             return text;
-        let o;
-        if (label) {
-            o = (text.accessibility || text);
-            o = text && text.accessibilityData;
-            o = o && o.label;
-        }
-        else {
-            o = text && text.simpleText;
-        }
-        return o || "";
+        return text.simpleText || null;
     }
     static thumbnail(pack) {
         if (pack && (pack.thumbnails instanceof Array)) {

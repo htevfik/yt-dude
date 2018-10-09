@@ -20,19 +20,20 @@ class Request {
     return requestPromise({ url, headers, gzip: true });
   }
 
-  private static createCachePath(url) {
-    let { pathname, query, hostname, protocol, port } = URL.parse(url), path, file;
+  public static createCachePath(url) {
+    let { pathname, query, hostname, protocol, port } = URL.parse(url), path, file, json;
 
     protocol = protocol.replace(':', '').toLowerCase();
     hostname = hostname || 'HOSTNAME';
     port = port || ({ http: 80, https: 443, ftp: 21, ssh: 22 })[protocol];
     pathname = pathname == '/' ? null : pathname;
     query = query || 'index';
-    
+
     path = Path.join(...['cache', hostname, protocol, port, pathname].filter(Boolean).map(String));
     file = Path.join(path, query + ".html");
+    json = Path.join(path, query + ".json");
 
-    return { path, file };
+    return { path, file, json };
   }
 
   private cache(url: string, body?: string) {
@@ -64,4 +65,4 @@ class Request {
 }
 
 const request = new Request();
-export { request };
+export { Request, request };

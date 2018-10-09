@@ -22,7 +22,7 @@ class Request {
         return requestPromise({ url, headers, gzip: true });
     }
     static createCachePath(url) {
-        let { pathname, query, hostname, protocol, port } = URL.parse(url), path, file;
+        let { pathname, query, hostname, protocol, port } = URL.parse(url), path, file, json;
         protocol = protocol.replace(':', '').toLowerCase();
         hostname = hostname || 'HOSTNAME';
         port = port || ({ http: 80, https: 443, ftp: 21, ssh: 22 })[protocol];
@@ -30,7 +30,8 @@ class Request {
         query = query || 'index';
         path = Path.join(...['cache', hostname, protocol, port, pathname].filter(Boolean).map(String));
         file = Path.join(path, query + ".html");
-        return { path, file };
+        json = Path.join(path, query + ".json");
+        return { path, file, json };
     }
     cache(url, body) {
         const { path, file } = Request.createCachePath(url);
@@ -56,6 +57,7 @@ class Request {
         });
     }
 }
+exports.Request = Request;
 const request = new Request();
 exports.request = request;
 //# sourceMappingURL=index.js.map

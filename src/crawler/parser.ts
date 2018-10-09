@@ -1,7 +1,5 @@
 export class Parser {
   public static child<T>(object, path, def = null): T {
-    def = def || object;
-
     if (!object || !path) {
       return def;
     }
@@ -21,7 +19,7 @@ export class Parser {
     return {
       videoId: result.videoId,
       title: Parser.text(result.title),
-      titleLong: Parser.text(result.title, true),
+      titleLong: Parser.label(result.title),
       description: Parser.runs(result.descriptionSnippet),
       length: Parser.videoLength(result.lengthText),
       lengthText: Parser.text(result.lengthText),
@@ -84,21 +82,16 @@ export class Parser {
     return o || null;
   }
 
-  public static text(text: Youtube.Text, label = false) {
+  public static label(text: Youtube.Text): string {
+    if (!text) return null;
+    return this.child(text.accessibility || text, 'accessibilityData.label');
+  }
+
+  public static text(text: Youtube.Text) {
     if (!text) return "";
     if (typeof text == 'string') return text;
 
-    let o: any;
-
-    if (label) {
-      o = (text.accessibility || text);
-      o = text && text.accessibilityData;
-      o = o && o.label;
-    } else {
-      o = text && text.simpleText;
-    }
-
-    return o || "";
+    return text.simpleText || null;
   }
 
   public static thumbnail(pack: Youtube.ThumbnailPack) {

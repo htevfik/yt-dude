@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const error_1 = require("./error");
 const parser_1 = require("./parser");
 const request_1 = require("../request");
-const extractor_1 = require("../extractor");
 const cheerio = require("cheerio");
 class Crawler {
     constructor() {
@@ -48,11 +47,6 @@ class Crawler {
         }
         keywords = encodeURIComponent(keywords);
         return this.searchResultRequest('https://www.youtube.com/results?search_query=' + keywords);
-    }
-    crawlUrl(url) {
-        return request_1.request.get(url).then(body => {
-            return extractor_1.runExtractor(body);
-        });
     }
 }
 Crawler.properyPath = 'ytInitialData.contents.twoColumnSearchResultsRenderer.primaryContents.' +

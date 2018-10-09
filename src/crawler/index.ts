@@ -1,7 +1,7 @@
 import { CrawlerError } from './error';
 import { Parser } from './parser';
 import { request } from '../request';
-import { runExtractor } from '../extractor';
+import { extractor } from '../extractor';
 import cheerio = require('cheerio');
 
 class Crawler {
@@ -60,12 +60,6 @@ class Crawler {
     keywords = encodeURIComponent(keywords);
 
     return this.searchResultRequest('https://www.youtube.com/results?search_query=' + keywords);
-  }
-
-  public crawlUrl(url: string) {
-    return request.get(url).then(body => {
-      return runExtractor(body);
-    });
   }
 }
 
