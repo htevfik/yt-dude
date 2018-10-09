@@ -1,6 +1,7 @@
 import { CrawlerError } from './error';
 import { Parser } from './parser';
-import requestPromise = require('request-promise');
+import { request } from '../request';
+import { runExtractor } from '../extractor';
 import cheerio = require('cheerio');
 
 class Crawler {
@@ -8,31 +9,10 @@ class Crawler {
     'ytInitialData.contents.twoColumnSearchResultsRenderer.primaryContents.' +
     'sectionListRenderer.contents.0.itemSectionRenderer.contents';
 
-  public headers = {
-    accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-    'accept-encoding': "gzip",
-    'accept-language': "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7,ru;q=0.6",
-    'cache-control': "max-age=0",
-    cookie: "VISITOR_INFO1_LIVE=pFbQsaRav8E; PREF=f1=50000000; YSC=sqhan-_xa-I; GPS=1",
-    dnt: "1",
-    'upgrade-insecure-requests': "1",
-    'user-agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36",
-  };
-
   public verbose = false;
 
-  private request(url: string) {
-    const { headers } = this;
-
-    if (this.verbose) {
-      console.log('GET: ' + url);
-    }
-
-    return requestPromise({ url, headers, gzip: true });
-  }
-
   private searchResultRequest(url: string) {
-    return this.request(url).then(body => {
+    return request.get(url).then(body => {
       let
         $ = cheerio.load(body),
         window = {} as any,
@@ -81,6 +61,13 @@ class Crawler {
 
     return this.searchResultRequest('https://www.youtube.com/results?search_query=' + keywords);
   }
+
+  public crawlUrl(url: string) {
+    return request.get(url).then(body => {
+      return runExtractor(body);
+    });
+  }
 }
 
-export const crawler = new Crawler();
+const crawler = new Crawler();
+export { crawler };

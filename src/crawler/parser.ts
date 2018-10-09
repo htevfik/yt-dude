@@ -86,6 +86,7 @@ export class Parser {
 
   public static text(text: Youtube.Text, label = false) {
     if (!text) return "";
+    if (typeof text == 'string') return text;
 
     let o: any;
 

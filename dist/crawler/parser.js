@@ -75,6 +75,8 @@ class Parser {
     static text(text, label = false) {
         if (!text)
             return "";
+        if (typeof text == 'string')
+            return text;
         let o;
         if (label) {
             o = (text.accessibility || text);

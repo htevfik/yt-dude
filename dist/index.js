@@ -19,6 +19,9 @@ class YoutubeDude {
     download(video, saveTo) {
         return downloader_1.downloader.download(video, saveTo);
     }
+    crawl(url) {
+        return crawler_1.crawler.crawlUrl(url);
+    }
 }
 exports.YoutubeDude = YoutubeDude;
 module.exports = new YoutubeDude();

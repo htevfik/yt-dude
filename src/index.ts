@@ -23,6 +23,10 @@ export class YoutubeDude {
   public download(video: Dude.Video | Dude.Result, saveTo: string) {
     return downloader.download(video, saveTo);
   }
+
+  public crawl(url: string) {
+    return crawler.crawlUrl(url);
+  }
 }
 
 module.exports = new YoutubeDude();
