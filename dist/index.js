@@ -22,6 +22,30 @@ class YoutubeDude {
     crawl(url) {
         return crawler_1.crawler.crawlUrl(url);
     }
+    music() {
+        return this.crawl('https://www.youtube.com/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ');
+    }
+    sport() {
+        return this.crawl('https://www.youtube.com/channel/UCEgdi0XIXXZ-qJOFPf4JSKw');
+    }
+    news() {
+        return this.crawl('https://www.youtube.com/channel/UCYfdidRxbB8Qhf0Nx7ioOYw');
+    }
+    live() {
+        return this.crawl('https://www.youtube.com/channel/UC4R8DWoMoI7CAwX8_LjQHig');
+    }
+    vr() {
+        return this.crawl('https://www.youtube.com/channel/UCzuqhhs6NWbgTzMuM09WKDQ');
+    }
+    gaming() {
+        return this.crawl('https://www.youtube.com/gaming');
+    }
+    feed() {
+        return this.crawl('https://www.youtube.com/');
+    }
+    trending() {
+        return this.crawl('https://www.youtube.com/feed/trending');
+    }
 }
 exports.YoutubeDude = YoutubeDude;
 module.exports = new YoutubeDude();
