@@ -13,7 +13,7 @@ class Extractor {
       }, err => {
         return err.code === 'ENOENT' ? null : err;
       }).then(json => {
-        if (!json) {
+        if (json) {
           try {
             return JSON.parse(json);
           } catch (err) { }
