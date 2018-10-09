@@ -1,6 +1,6 @@
 {
   "name": "yt-dude",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "here is a package for crawling and downloading videos from youtube",
   "main": "dist/index.js",
   "scripts": {
