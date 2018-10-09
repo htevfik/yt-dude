@@ -3,3 +3,4 @@ mp3/
 .npmignore
 test.js
 cache/
+output/
