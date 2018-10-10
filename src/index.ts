@@ -1,28 +1,21 @@
-import { crawler } from './crawler';
-import { downloader } from './downloader';
-import { extractor } from './extractor';
+import './prototype/all'
+import Downloader from "./downloader";
+import Extractor from "./extractor";
 
-export class YoutubeDude {
+class YoutubeDude {
   private url: string = 'https://www.youtube.com';
-  set verbose(val: boolean) {
-    crawler.verbose = val;
-    downloader.verbose = val;
+  private downloader: Downloader;
+
+  constructor() {
+    this.downloader = new Downloader();
   }
 
-  get queueLimit() {
-    return downloader.limit;
-  }
-
-  set queueLimit(val: number) {
-    downloader.limit = val;
-  }
-
-  public download(video: Dude.Video | Dude.Result, saveTo: string) {
-    return downloader.download(video, saveTo);
+  public download(video: Youtube.Video, saveTo: string) {
+    return this.downloader.download(video, saveTo);
   }
 
   public crawl(url: string) {
-    return extractor.get(url);
+    return Extractor.get(url);
   }
 
   public search(terms: string) {
@@ -76,4 +69,4 @@ export class YoutubeDude {
   }
 }
 
-module.exports = new YoutubeDude();
+exports = module.exports = new YoutubeDude();

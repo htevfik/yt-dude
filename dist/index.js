@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const crawler_1 = require("./crawler");
+require("./prototype/all");
 const downloader_1 = require("./downloader");
 const extractor_1 = require("./extractor");
 class YoutubeDude {
@@ -14,22 +14,13 @@ class YoutubeDude {
             live: 'UC4R8DWoMoI7CAwX8_LjQHig',
             vr: 'UCzuqhhs6NWbgTzMuM09WKDQ'
         };
-    }
-    set verbose(val) {
-        crawler_1.crawler.verbose = val;
-        downloader_1.downloader.verbose = val;
-    }
-    get queueLimit() {
-        return downloader_1.downloader.limit;
-    }
-    set queueLimit(val) {
-        downloader_1.downloader.limit = val;
+        this.downloader = new downloader_1.default();
     }
     download(video, saveTo) {
-        return downloader_1.downloader.download(video, saveTo);
+        return this.downloader.download(video, saveTo);
     }
     crawl(url) {
-        return extractor_1.extractor.get(url);
+        return extractor_1.default.get(url);
     }
     search(terms) {
         return this.crawl(this.url + '/results?search_query=' + encodeURIComponent(terms));
@@ -63,6 +54,5 @@ class YoutubeDude {
         return this.channel(this.channels.vr);
     }
 }
-exports.YoutubeDude = YoutubeDude;
-module.exports = new YoutubeDude();
+exports = module.exports = new YoutubeDude();
 //# sourceMappingURL=index.js.map
